@@ -37,5 +37,10 @@ const movieSchema = new Schema<IMovie>({
   },
 });
 
+movieSchema.pre("find", function (next) {
+  this.find({ isDeleted: { $ne: true } });
+  next();
+});
+
 const Movie = model("Movie", movieSchema);
 export default Movie;

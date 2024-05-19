@@ -1,4 +1,4 @@
-# Batch3:Mission02:Apollo-Flix
+# Batch3: Mission-02: Apollo-Flix
 
 **Mongoose Express CRUD Mastery**
 
@@ -235,7 +235,7 @@
 }
 ```
 
-### **6. Search Movies by Title,Description & Genre**
+### **6. Search Movies by Title, Description & Genre**
 
 - **Endpoint**: **`GET /api/movies/search?title=searchTerm`**
 - **Response**:
@@ -453,7 +453,7 @@
 }
 ```
 
-**10.API Endpoint**: **`/api/movies/update-rating` (H/W) **
+**10.API Endpoint**: **`/api/movies/update-rating (H/W)`**
 
 **Method**: **`POST`**
 

@@ -14,9 +14,22 @@
     "sourceType": "module",
     "project": "./tsconfig.json"
   },
-  "plugins": ["@typescript-eslint"],
+  "plugins": [
+    "@typescript-eslint"
+  ],
   "rules": {
-    "no-unused-vars": "error",
-    "no-console": "warn"
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_",
+        "caughtErrorsIgnorePattern": "^_"
+      }
+    ],
+    "no-unused-expressions": "error",
+    "prefer-const": "error",
+    "no-console": "warn",
+    "no-undef": "error"
   }
 }
