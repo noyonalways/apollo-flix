@@ -95,8 +95,8 @@
       "description": "A thief who enters the dreams of others to steal their secrets from their subconscious gets a chance to redeem himself by planting an idea into the mind of a CEO.",
       "releaseDate": "2010-07-16",
       "genre": "Sci-Fi, Action, Thriller",
-       "isDeleted": false,
-       "viewCount":0,
+      "isDeleted": false,
+      "viewCount": 0,
       "reviews": [
         {
           "email": "example1@example.com",
@@ -111,9 +111,12 @@
         {
           "email": "example3@example.com",
           "rating": 4.5,
-          "comment": "Absolutely brilliant! Keeps you guess
-         }
-    ]
+          "comment": "Absolutely brilliant! Keeps you guess"
+        }
+      ]
+    }
+  ]
+}
 ```
 
 ### **3. Retrieve a Specific Movie by ID**
@@ -229,9 +232,9 @@
 
 ```json
 {
-    "success": true,
-    "message": "Movie deleted successfully!",
-    "data": null}
+  "success": true,
+  "message": "Movie deleted successfully!",
+  "data": null
 }
 ```
 
@@ -250,8 +253,8 @@
       "description": "A thief who enters the dreams of others to steal their secrets from their subconscious gets a chance to redeem himself by planting an idea into the mind of a CEO.",
       "releaseDate": "2010-07-16",
       "genre": "Sci-Fi, Action, Thriller",
-       "isDeleted": false,
-      "viewCount":0,
+      "isDeleted": false,
+      "viewCount": 0,
       "reviews": [
         {
           "email": "example1@example.com",
@@ -275,8 +278,8 @@
       "description": "When the menace known as The Joker emerges from his mysterious past, he wreaks havoc and chaos on the people of Gotham.",
       "releaseDate": "2008-07-18",
       "genre": "Action, Crime, Drama",
-       "isDeleted": false,
-       "viewCount":0,
+      "isDeleted": false,
+      "viewCount": 0,
       "reviews": [
         {
           "email": "reviewer1@example.com",
@@ -290,8 +293,8 @@
         }
       ]
     }
-    // Additional movies can be added here...
-
+  ]
+}
 ```
 
 ### **7. Retrieve Trending Movies (Movies that has viewCount greater than 5 )**

@@ -1,11 +1,37 @@
 import { NextFunction, Request, Response } from "express";
 import { IMovie } from "./movie.interface";
 import movieService from "./movie.service";
+import { sendResponse } from "../../utils";
+import movieSchema from "./movie.validation";
 
 const create = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const movie: IMovie = await movieService.create(req.body);
-    res.status(201).json({
+    const { success, error, data } = movieSchema.safeParse(req.body);
+
+    if (!success) {
+      const formattedErrors = error.issues.reduce(
+        (acc: Record<string, string>, issue) => {
+          if (issue.code === "unrecognized_keys") {
+            issue.keys.forEach((key) => {
+              acc[key] = `Unrecognized key: '${key}'`;
+            });
+          } else {
+            acc[issue.path.join(".")] = issue.message;
+          }
+          return acc;
+        },
+        {},
+      );
+
+      return res.status(400).json({
+        success: false,
+        message: formattedErrors,
+      });
+    }
+
+    const movie: IMovie = await movieService.create(data as IMovie);
+    sendResponse(res, {
+      statusCode: 201,
       success: true,
       message: "Movie created successfully",
       data: movie,
@@ -17,11 +43,12 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
 
 const getAll = async (_req: Request, res: Response, next: NextFunction) => {
   try {
+    // TODO: handle query parameter search
     const movies: IMovie[] = await movieService.getAll();
-    res.status(200).json({
+    sendResponse(res, {
+      statusCode: 200,
       success: true,
       message: "Movies fetched successfully",
-      count: movies.length,
       data: movies,
     });
   } catch (err) {
