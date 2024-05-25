@@ -6,9 +6,9 @@
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only ./src/server.ts",
     "start": "tsc && node ./dist/server.js",
-    "lint": "eslint src",
-    "lint:fix": "eslint src --fix",
-    "format": "prettier ./src --write \"**/*.+(js|ts|json)\"",
+    "lint": "eslint ./src",
+    "lint:fix": "eslint ./src --fix",
+    "format": "prettier ./src --write",
     "format:check": "prettier ./src --check",
     "build": "tsc"
   },

@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import movieService from "./movie.service";
 import { IMovie } from "./movie.interface";
+import movieService from "./movie.service";
 
 const create = async (req: Request, res: Response, next: NextFunction) => {
   try {

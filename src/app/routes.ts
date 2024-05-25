@@ -1,6 +1,6 @@
-import { NextFunction, Request, Response, Router } from "express";
-import movieRoutes from "../modules/Movie/movie.routes";
-import { TCustomError } from "../types";
+import { Router } from "express";
+import allRoutes from "../routes";
+import { globalErrorHandler, notFoundErrorHandler } from "./error.handler";
 const router: Router = Router();
 
 router.get("/", (req, res) => {
@@ -11,27 +11,13 @@ router.get("/health", (req, res) => {
   res.status(200).send("OK");
 });
 
-// main routes
-router.use("/api", movieRoutes);
+// all routes
+router.use("/api/v1", allRoutes);
 
-router.use((_req: Request, _res: Response, next: NextFunction) => {
-  const err: TCustomError = new Error("Page not found");
-  err.status = 404;
-  next(err);
-});
+// not found error handler
+router.use(notFoundErrorHandler);
 
-router.use(
-  (
-    error: TCustomError,
-    _req: Request,
-    res: Response,
-    _next: NextFunction,
-  ): void => {
-    res.status(error.status || 500).json({
-      status: false,
-      message: error.message || "something went wrong",
-    });
-  },
-);
+// global error handler
+router.use(globalErrorHandler);
 
 export default router;
