@@ -29,7 +29,7 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
       });
     }
 
-    const movie: IMovie = await movieService.create(data as IMovie);
+    const movie = await movieService.create(data as IMovie);
     sendResponse(res, {
       statusCode: 201,
       success: true,
@@ -44,7 +44,7 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
 const getAll = async (_req: Request, res: Response, next: NextFunction) => {
   try {
     // TODO: handle query parameter search
-    const movies: IMovie[] = await movieService.getAll();
+    const movies = await movieService.getAll();
     sendResponse(res, {
       statusCode: 200,
       success: true,
@@ -56,7 +56,33 @@ const getAll = async (_req: Request, res: Response, next: NextFunction) => {
   }
 };
 
+const getSingle = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { id } = req.params;
+    const movie = await movieService.findByProperty("_id", id);
+
+    if (!movie) {
+      return sendResponse(res, {
+        statusCode: 404,
+        success: false,
+        message: "Movie not found",
+        data: undefined,
+      });
+    }
+
+    sendResponse(res, {
+      statusCode: 200,
+      success: true,
+      message: "Movie fetched successfully",
+      data: movie,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
 export default {
   create,
   getAll,
+  getSingle,
 };
