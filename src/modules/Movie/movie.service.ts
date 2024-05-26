@@ -3,15 +3,18 @@ import { IMovie } from "./movie.interface";
 import Movie from "./movie.model";
 import { customError } from "../../utils";
 
+// create a movie
 const create = (data: IMovie) => {
   const movie = new Movie({ ...data });
   return movie.save();
 };
 
+// get all movies
 const getAll = () => {
   return Movie.find({});
 };
 
+// find movie by property
 const findByProperty = (key: string, value: string) => {
   if (key === "_id") {
     if (!isValidObjectId(value)) {
@@ -22,8 +25,27 @@ const findByProperty = (key: string, value: string) => {
   return Movie.findOne({ [key]: value });
 };
 
+// update single movie
+const updateSingle = async (id: string, data: IMovie) => {
+  if (!isValidObjectId(id)) {
+    throw customError(false, 400, "Invalid id");
+  }
+
+  const updatedMovie = await Movie.findByIdAndUpdate(id, data, {
+    new: true,
+    runValidators: true,
+  });
+
+  if (!updatedMovie) {
+    throw customError(false, 404, "Movie not found");
+  }
+
+  return updatedMovie;
+};
+
 export default {
   create,
   getAll,
   findByProperty,
+  updateSingle,
 };

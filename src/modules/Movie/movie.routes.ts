@@ -5,6 +5,9 @@ const router: Router = Router();
 
 router.route("/").post(movieController.create).get(movieController.getAll);
 
-router.route("/:id").get(movieController.getSingle);
+router
+  .route("/:id")
+  .get(movieController.getSingle)
+  .put(movieController.updateSingle);
 
 export default router;
