@@ -43,9 +43,25 @@ const updateSingle = async (id: string, data: IMovie) => {
   return updatedMovie;
 };
 
+// delete single movie
+const deleteSingle = async (id: string) => {
+  if (!isValidObjectId(id)) {
+    throw customError(false, 400, "Invalid id");
+  }
+
+  const deletedMovie = await Movie.findByIdAndDelete(id);
+
+  if (!deletedMovie) {
+    throw customError(false, 404, "Movie not found");
+  }
+
+  return null;
+};
+
 export default {
   create,
   getAll,
   findByProperty,
   updateSingle,
+  deleteSingle,
 };

@@ -97,9 +97,29 @@ const updateSingle = async (
   }
 };
 
+const deleteSingle = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const { id } = req.params;
+    const deletedMovie = await movieService.deleteSingle(id);
+    sendResponse(res, {
+      statusCode: 200,
+      success: true,
+      message: "Movie deleted successfully",
+      data: deletedMovie,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
 export default {
   create,
   getAll,
   getSingle,
   updateSingle,
+  deleteSingle,
 };
