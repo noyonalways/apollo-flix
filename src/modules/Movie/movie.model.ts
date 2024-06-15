@@ -60,4 +60,5 @@ movieSchema.method("createSlug", function createSlug(payload: TMovie) {
 //   next();
 // });
 
-export const Movie = model<TMovie, TMovieModel>("Movie", movieSchema);
+const Movie = model<TMovie, TMovieModel>("Movie", movieSchema);
+export const Movie;

@@ -1,10 +1,10 @@
 import { isValidObjectId } from "mongoose";
-import { IMovie } from "./movie.interface";
-import Movie from "./movie.model";
 import { customError } from "../../utils";
+import { TMovie } from "./movie.interface";
+import { Movie } from "./movie.model";
 
 // create a movie
-const create = (data: IMovie) => {
+const create = (data: TMovie) => {
   const movie = new Movie({ ...data });
   return movie.save();
 };
@@ -26,7 +26,7 @@ const findByProperty = (key: string, value: string) => {
 };
 
 // update single movie
-const updateSingle = async (id: string, data: IMovie) => {
+const updateSingle = async (id: string, data: TMovie) => {
   if (!isValidObjectId(id)) {
     throw customError(false, 400, "Invalid id");
   }
