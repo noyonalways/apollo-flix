@@ -1,8 +1,7 @@
 import { NextFunction, Request, Response } from "express";
-import { IMovie } from "./movie.interface";
+import { formatErrors, sendResponse } from "../../utils";
 import movieService from "./movie.service";
 import movieSchema from "./movie.validation";
-import { formatErrors, sendResponse } from "../../utils";
 
 const create = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -16,7 +15,7 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
       });
     }
 
-    const movie = await movieService.create(data as IMovie);
+    const movie = await movieService.create(data);
     sendResponse(res, {
       statusCode: 201,
       success: true,
@@ -85,7 +84,7 @@ const updateSingle = async (
       });
     }
 
-    const updatedMovie = await movieService.updateSingle(id, data as IMovie);
+    const updatedMovie = await movieService.updateSingle(id, data);
     sendResponse(res, {
       statusCode: 200,
       success: true,

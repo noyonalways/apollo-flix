@@ -1,7 +1,20 @@
 {
+  "workbench.colorTheme": "Learn with Sumit - Professional",
+  "workbench.iconTheme": "material-icon-theme",
+  "editor.fontFamily": "Fira Code",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "always"
+  },
   "editor.formatOnSave": true,
+  "editor.tabSize": 2,
   "cSpell.words": [
-    "Virtuals"
-  ]
+    "datetime",
+    "maxlength",
+    "Noyon",
+    "Rahman",
+    "tseslint",
+    "virtuals"
+  ],
+  "files.autoSave": "off"
 }

@@ -1,15 +1,19 @@
-export interface IReview {
-  email: string;
-  rating: number;
-  comment: string;
-}
+import { Model } from "mongoose";
 
-export interface IMovie {
+export type TMovie = {
   title: string;
   description: string;
-  releaseDate: string;
+  releaseDate: Date;
   genre: string;
-  isDeleted: boolean;
+  slug: string;
   viewCount: number;
-  reviews: IReview[];
-}
+  totalRating: number;
+  isDeleted?: boolean;
+};
+
+// Put all user instance methods in this interface:
+export type TMovieMethods = {
+  createSlug(payload: TMovie): string;
+};
+
+export type TMovieModel = Model<TMovie, Record<string, unknown>, TMovieMethods>;

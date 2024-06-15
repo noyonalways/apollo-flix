@@ -1,37 +1,26 @@
+import { format } from "date-fns";
 import { Schema, model } from "mongoose";
-import { IMovie, IReview } from "./movie.interface";
+import slugify from "slugify";
+import { TMovie, TMovieMethods, TMovieModel } from "./movie.interface";
 
-const reviewSchema = new Schema<IReview>({
-  email: {
-    type: String,
-    required: [true, "email is required"],
-  },
-  rating: {
-    type: Number,
-    required: [true, "ratting is required"],
-  },
-  comment: {
-    type: String,
-    required: [true, "comment is required"],
-  },
-});
-
-const movieSchema = new Schema<IMovie>({
+const movieSchema = new Schema<TMovie, TMovieModel, TMovieMethods>({
   title: {
     type: String,
-    required: [true, "title is required"],
+    required: [true, "Title is required"],
   },
   description: {
     type: String,
-    required: [true, "description is required"],
+    required: [true, "Description is required"],
   },
   releaseDate: {
-    type: String,
-    required: [true, "releaseDate is required"],
+    type: Date,
   },
   genre: {
     type: String,
-    required: [true, "genre is required"],
+    required: [true, "Genre is required"],
+  },
+  slug: {
+    type: String,
   },
   isDeleted: {
     type: Boolean,
@@ -41,15 +30,34 @@ const movieSchema = new Schema<IMovie>({
     type: Number,
     default: 0,
   },
-  reviews: {
-    type: [reviewSchema],
+  totalRating: {
+    type: Number,
+    default: 0,
   },
 });
 
-movieSchema.pre("find", function (next) {
-  this.find({ isDeleted: { $ne: true } });
-  next();
+// option-1:
+movieSchema.method("createSlug", function createSlug(payload: TMovie) {
+  const date = format(payload.releaseDate, "dd-MM-yyyy");
+
+  //creating slug
+  const slug = slugify(`${payload.title}-${date}}`, {
+    lower: true,
+  });
+
+  return slug;
 });
 
-const Movie = model<IMovie>("Movie", movieSchema);
-export default Movie;
+// option-2: Using pre hook middleware
+// movieSchema.pre("save", async function (next) {
+//   const date = format(this.releaseDate, "dd-MM-yyyy");
+
+//   //creating slug
+//   this.slug = slugify(`${this.title}-${date}}`, {
+//     lower: true,
+//   });
+
+//   next();
+// });
+
+export const Movie = model<TMovie, TMovieModel>("Movie", movieSchema);
