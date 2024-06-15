@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { formatErrors, sendResponse } from "../../utils";
+import { TMovie } from "./movie.interface";
 import movieService from "./movie.service";
 import movieSchema from "./movie.validation";
 
@@ -15,7 +16,7 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
       });
     }
 
-    const movie = await movieService.create(data);
+    const movie = await movieService.create(data as TMovie);
     sendResponse(res, {
       statusCode: 201,
       success: true,
@@ -84,7 +85,7 @@ const updateSingle = async (
       });
     }
 
-    const updatedMovie = await movieService.updateSingle(id, data);
+    const updatedMovie = await movieService.updateSingle(id, data as TMovie);
     sendResponse(res, {
       statusCode: 200,
       success: true,

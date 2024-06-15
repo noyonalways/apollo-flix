@@ -61,4 +61,4 @@ movieSchema.method("createSlug", function createSlug(payload: TMovie) {
 // });
 
 const Movie = model<TMovie, TMovieModel>("Movie", movieSchema);
-export const Movie;
+export default Movie;
