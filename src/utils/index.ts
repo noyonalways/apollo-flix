@@ -1,3 +1,3 @@
 export { customError } from "./customError";
-export { formatErrors } from "./formattedErrors";
+export { formatErrors } from "./formatErrors";
 export { sendResponse } from "./sendResponse";
